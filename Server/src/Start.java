@@ -6,6 +6,10 @@ public class Start extends Main {
 	private JTextArea textArea;
 	private JPanel panel1;
 	private JPanel panel2;
+
+	String IP = "192.168.56.1";
+	int port = 9876;
+	
 	public Start() {
 		setTitle("[채팅 서버]");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

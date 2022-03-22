@@ -8,7 +8,7 @@ import java.net.Socket;
  * 생성자, receive, send로 구성되어 있음
  */
 
-public class Client {
+public class Client extends Main {
 
 	Socket socket;
 	
@@ -23,18 +23,20 @@ public class Client {
 			@Override
 			public void run() {
 				try {
-					InputStream in = socket.getInputStream();
-					byte[] buffer = new byte[512];
-					
-					int length = in.read(buffer);
-					if(length == -1) throw new IOException();
-					System.out.println("[메시지 수신 성공] "
-							+ socket.getRemoteSocketAddress()
-							+ ": " + Thread.currentThread().getName());
-					
-					String message = new String(buffer, 0, length, "UTF-8");
-					for(Client client : Main.clients) {
-						client.send(message);
+					while(true) {
+						InputStream in = socket.getInputStream();
+						byte[] buffer = new byte[512];
+						
+						int length = in.read(buffer);
+						if(length == -1) throw new IOException();
+						System.out.println("[메시지 수신 성공] " 
+								+ socket.getRemoteSocketAddress()
+								+ ": " + Thread.currentThread().getName());
+						
+						String message = new String(buffer, 0, length, "UTF-8");
+						for(Client client : Main.clients) {
+							client.send(message);
+						}
 					}
 				} catch(Exception e) {
 					try {

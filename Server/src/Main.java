@@ -12,8 +12,8 @@ public class Main extends JFrame {
 	
 	public static ExecutorService threadPool;
 	public static Vector<Client> clients = new Vector<Client>();
-	String IP = "127.0.0.1";
-	int port = 9876;
+//	String IP = "127.0.0.1";
+//	int port = 9876;
 	
 	ServerSocket serverSocket;
 	
