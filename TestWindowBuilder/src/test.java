@@ -22,6 +22,7 @@ import java.awt.Canvas;
 public class test extends JFrame {
 
 	Socket socket;
+	Socket socket2;
 	JPanel contentPane;
 	JPanel panel_1 = new JPanel();
 	JTextArea textArea;
@@ -69,7 +70,36 @@ public class test extends JFrame {
 				int length = in.read(buffer);
 				if(length == -1) throw new IOException();
 				String message = new String(buffer, 0, length, "UTF-8");
-				textArea.append(message);
+				if (message.contains(":")) {
+					textArea.append(message);					
+					
+				}
+				else {
+					Boolean flag = true;
+					String tmp = userArea.getText();
+					if (tmp.contains(message)) {
+						flag = false;
+					}
+//					String tmps[] = tmp.split("\n");
+					
+//					for(var i = 0; i < tmps.length; i++) {
+//						if(message.equals(tmps[i])) {
+//							flag = false;
+//						}
+//					}
+					if(flag == true) {
+						userArea.append(message);
+					}
+//					System.out.println(tmp);
+//					String tmp[] = userArea.getText().split("\n");
+//					for(var i = 0; i < tmp.length; i++) {
+//						if(message.equals(tmp[i])) {
+//							flag = false;
+//						}
+//					}
+//					if(flag == true)
+//						userArea.append(message);
+				}
 			} catch(Exception e) {
 				stopClient();
 				break;
@@ -85,7 +115,8 @@ public class test extends JFrame {
 				byte[] buffer = new byte[512];
 				int length = in.read(buffer);
 				if(length == -1) throw new IOException();
-				String user_name = new String(buffer, 0, length, "UTF-8");
+				String message = new String(buffer, 0, length, "UTF-8");
+				String user_name = message.split(":")[0];
 				userArea.append(user_name);
 			} catch(Exception e) {
 				stopClient();
@@ -145,8 +176,9 @@ public class test extends JFrame {
 //				continue;
 				InputNickName = JOptionPane.showInputDialog("대화명을 입력하세요.");
 			}
-		}		
-		sendUserName(InputNickName);		
+		}
+//		userArea.append(InputNickName);
+		sendUserName(InputNickName);
 	}	
 
 	/**
@@ -204,8 +236,8 @@ public class test extends JFrame {
 		textArea.setEditable(false);
 		JScrollPane scrollPane = new JScrollPane(textArea);
 		textArea.setBounds(0, 0, 340, 190);
-//		scrollPane.setBounds(340, 0, 344, 190);
-//		scrollPane.setBackground(Color.black);
+		scrollPane.setBounds(340, 0, 344, 190);
+		scrollPane.setBackground(Color.black);
 		panel_1.add(textArea);
 		panel_1.add(scrollPane);
 		
@@ -215,9 +247,10 @@ public class test extends JFrame {
 		panel_2.setLayout(null);
 		
 		userArea = new JTextArea();
-		userArea.setEditable(false);
-		userArea.setEnabled(false);
-		userArea.setText("userArea");
+//		userArea.setEditable(false);
+//		userArea.setEnabled(false);
+//		userArea.append(InputNickName);
+//		userArea.setText("userArea");
 		userArea.setBounds(0, 0, 89, 190);
 		panel_2.add(userArea);
 		
