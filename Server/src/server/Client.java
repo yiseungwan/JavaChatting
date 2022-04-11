@@ -17,6 +17,7 @@ public class Client extends Main {
 	public Client(Socket socket) {
 		this.socket = socket;
 		receive();
+//		receiveUserList();
 	}
 	
 	// 반복적으로 클라이언트로부터 메시지를 받는 메소드
@@ -36,8 +37,10 @@ public class Client extends Main {
 								+ ": " + Thread.currentThread().getName());
 						
 						String message = new String(buffer, 0, length, "UTF-8");
+						String user_name = message.split(":")[0];
 						for(Client client : Main.clients) {
 							client.send(message);
+							client.sendUserName(user_name+"\n");
 						}
 					}
 				} catch(Exception e) {
@@ -71,9 +74,10 @@ public class Client extends Main {
 								+ socket.getRemoteSocketAddress()
 								+ ": " + Thread.currentThread().getName());
 						
-						String user_name = new String(buffer, 0, length, "UTF-8");
+						String message = new String(buffer, 0, length, "UTF-8");
+						String user_name = message.split(":")[0];
 						for(Client client : Main.clients) {
-							client.send(user_name);
+							client.sendUserName(user_name);
 						}
 					}
 				} catch(Exception e) {
