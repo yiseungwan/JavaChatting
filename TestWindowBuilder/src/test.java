@@ -1,5 +1,6 @@
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -27,6 +28,7 @@ public class test extends JFrame {
 	JPanel panel_1 = new JPanel();
 	JTextArea textArea;
 	JTextArea userArea;
+	JScrollPane scrollPane;
 	JLabel userName = new JLabel("userName");
 	String IPText = "127.0.0.1";
 	String InputNickName;
@@ -229,17 +231,17 @@ public class test extends JFrame {
 		panel.add(userList);
 		panel_1.setBounds(0, 33, 344, 190);
 		contentPane.add(panel_1);
-		panel_1.setLayout(null);
+		panel_1.setLayout(new BorderLayout());
 		
 		textArea = new JTextArea();
-		textArea.setEnabled(false);
-		textArea.setEditable(false);
-		JScrollPane scrollPane = new JScrollPane(textArea);
-		textArea.setBounds(0, 0, 340, 190);
-		scrollPane.setBounds(340, 0, 344, 190);
-		scrollPane.setBackground(Color.black);
-		panel_1.add(textArea);
-		panel_1.add(scrollPane);
+		textArea.setEnabled(true);
+		textArea.setEditable(true);
+		JScrollPane scrollPane = new JScrollPane(textArea, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+//		textArea.setBounds(0, 0, 340, 185);
+//		scrollPane.setBounds(0, 0, 340, 185);
+//		scrollPane.setBackground(Color.black);
+//		panel_1.add(textArea, BorderLayout.CENTER);
+		panel_1.add(scrollPane, BorderLayout.CENTER);
 		
 		JPanel panel_2 = new JPanel();
 		panel_2.setBounds(345, 33, 89, 190);
